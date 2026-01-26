@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Codex Agent Runner | BlackRoad OS</title>
+    <meta name="description" content="Enterprise-grade AI agent runner for BlackRoad OS ecosystem">
+    <style>
+        :root {
+            /* Official BlackRoad Brand Colors */
+            --amber: #F5A623;
+            --hot-pink: #FF1D6C;
+            --electric-blue: #2979FF;
+            --violet: #9C27B0;
+            --black: #000000;
+            --white: #FFFFFF;
+            --gray-dark: #1a1a1a;
+            --gray-light: #f5f5f5;
+            
+            /* Golden Ratio Spacing (φ = 1.618) */
+            --space-xs: 8px;
+            --space-sm: 13px;
+            --space-md: 21px;
+            --space-lg: 34px;
+            --space-xl: 55px;
+            --space-2xl: 89px;
+            --space-3xl: 144px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', 'Roboto', sans-serif;
+            line-height: 1.618;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        
+        /* Animated gradient background */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-2xl) var(--space-lg);
+            background: linear-gradient(135deg,
+                var(--amber) 0%,
+                var(--hot-pink) 38.2%,
+                var(--violet) 61.8%,
+                var(--electric-blue) 100%);
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: clamp(34px, 8vw, 89px);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.02em;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            font-size: clamp(21px, 3vw, 34px);
+            font-weight: 300;
+            margin-bottom: var(--space-xl);
+            opacity: 0.95;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-lg);
+            margin: var(--space-2xl) 0;
+            padding: 0 var(--space-md);
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--space-sm);
+            padding: var(--space-lg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 21px 34px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 55px;
+            margin-bottom: var(--space-md);
+        }
+        
+        .feature-title {
+            font-size: 21px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+        }
+        
+        .feature-description {
+            font-size: 13px;
+            opacity: 0.9;
+            line-height: 1.618;
+        }
+        
+        .cta-section {
+            margin-top: var(--space-2xl);
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: var(--space-md) var(--space-xl);
+            font-size: 21px;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--white);
+            background: rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--white);
+            border-radius: var(--space-sm);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn:hover {
+            background: var(--white);
+            color: var(--black);
+            transform: scale(1.05);
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-2xl);
+            margin-top: var(--space-2xl);
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 55px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: var(--space-xs);
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .footer {
+            padding: var(--space-lg);
+            text-align: center;
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: var(--space-xl) var(--space-md);
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                gap: var(--space-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="container">
+            <h1>⚡ Codex Agent Runner</h1>
+            <p class="subtitle">Enterprise-Grade AI Agent Execution Platform</p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title">AI Agent Orchestration</h3>
+                    <p class="feature-description">Seamlessly manage and execute up to 30,000 AI agents concurrently with advanced scheduling and resource allocation</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Lightning Fast Execution</h3>
+                    <p class="feature-description">Optimized runtime environment with millisecond latency for real-time agent responses and code execution</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3 class="feature-title">Enterprise Security</h3>
+                    <p class="feature-description">Bank-grade security with end-to-end encryption, isolated execution environments, and comprehensive audit logging</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title">Real-Time Monitoring</h3>
+                    <p class="feature-description">Advanced analytics dashboard with live metrics, performance insights, and predictive resource management</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3 class="feature-title">Continuous Integration</h3>
+                    <p class="feature-description">Automated deployment pipelines with GitHub Actions, Cloudflare Pages, and instant rollback capabilities</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3 class="feature-title">Multi-Model Support</h3>
+                    <p class="feature-description">Unified API layer for OpenAI, Anthropic, and Google models with intelligent routing and fallback mechanisms</p>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-number">30,000</span>
+                    <span class="stat-label">AI Agents</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">30,000</span>
+                    <span class="stat-label">Employees</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">1</span>
+                    <span class="stat-label">Operator</span>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <a href="https://github.com/blackboxprogramming/codex-agent-runner" class="btn">View on GitHub</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2026 BlackRoad OS, Inc. All Rights Reserved. | CEO: Alexa Amundson</p>
+            <p>Part of the BlackRoad OS Ecosystem</p>
+        </div>
+    </div>
+</body>
+</html>
