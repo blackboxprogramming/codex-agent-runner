@@ -372,9 +372,21 @@
         statusBadge.textContent = 'Ollama online';
         const data = await r.json();
         const models = (data.models || []).map(m => m.name);
-        modelList.innerHTML = models.length
-          ? models.map(m => `<option value="${m}">${m}</option>`).join('')
-          : '<option value="">no models found</option>';
+        // Safely populate modelList without using innerHTML to avoid injection
+        modelList.innerHTML = '';
+        if (models.length) {
+          models.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            modelList.appendChild(opt);
+          });
+        } else {
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = 'no models found';
+          modelList.appendChild(opt);
+        }
         modelList.onchange = () => { modelInput.value = modelList.value; };
         return true;
       }
