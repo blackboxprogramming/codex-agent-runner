@@ -11,7 +11,7 @@
 - 🔒 **Enterprise Security** - Bank-grade security with isolated execution environments
 - 📊 **Real-Time Monitoring** - Advanced analytics with live performance metrics
 - 🔄 **Continuous Integration** - Automated deployment with GitHub Actions & Cloudflare Pages
-- 🌐 **Multi-Model Support** - Unified API layer for OpenAI, Anthropic, and Google models 
+- 🌐 **Multi-Model Support** - Unified API layer for OpenAI, Anthropic, and Google models
 
 
 ## 🚀 Quick Start
