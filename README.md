@@ -2,7 +2,7 @@
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/blackboxprogramming/codex-agent-runner/deploy.yml?branch=main)](https://github.com/blackboxprogramming/codex-agent-runner/actions)
 [![npm version](https://img.shields.io/npm/v/codex-agent-runner)](https://www.npmjs.com/package/codex-agent-runner)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/License-Proprietary-lightgrey.svg)](LICENSE)
 [![Brand Compliant](https://img.shields.io/badge/Brand-Compliant-success)](https://brand.blackroad.io)
 [![Live](https://img.shields.io/badge/Live-codex--agent--runner.pages.dev-brightgreen)](https://codex-agent-runner.pages.dev)
 
