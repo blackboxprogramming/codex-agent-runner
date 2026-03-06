@@ -304,17 +304,6 @@ codex-agent-runner/
 │       ├── deploy.yml          # Cloudflare Pages deploy + brand check
 │       ├── security-scan.yml   # CodeQL + dependency review
 │       └── self-healing.yml    # Health monitoring + auto-rollback
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   ├── components/             # Shared React components
-│   ├── lib/
-│   │   ├── stripe.ts           # Stripe client & helpers
-│   │   ├── agents.ts           # Agent orchestration logic
-│   │   └── db.ts               # Database client
-│   └── api/
-│       ├── health/             # GET /api/health
-│       └── webhooks/
-│           └── stripe/         # POST /api/webhooks/stripe
 ├── tests/
 │   ├── unit/                   # Jest unit tests
 │   └── e2e/                    # Playwright E2E tests
