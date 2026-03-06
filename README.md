@@ -83,8 +83,9 @@ cd codex-agent-runner
 # 2. Install dependencies
 npm install
 
-# 3. Copy environment variables
-cp .env.example .env.local
+# 3. Create your environment variables file
+#    (see the Environment Variables section below for required keys)
+touch .env.local
 
 # 4. Start the development server
 npm run dev
