@@ -305,7 +305,7 @@ codex-agent-runner/
 │       ├── security-scan.yml   # CodeQL + dependency review
 │       └── self-healing.yml    # Health monitoring + auto-rollback
 ├── CONTRIBUTING.md             # Contribution guidelines
-├── LICENSE                     # MIT License
+├── LICENSE                     # Proprietary license
 └── README.md                   # This file
 ```
 
