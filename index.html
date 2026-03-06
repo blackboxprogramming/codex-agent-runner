@@ -396,7 +396,7 @@
 
     // Display user bubble (show handle tag if one was detected)
     addMessage('user', raw, null);
-    history.push({ role: 'user', content: prompt || raw });
+    history.push({ role: 'user', content: prompt });
 
     promptEl.value = '';
     promptEl.style.height = '';
