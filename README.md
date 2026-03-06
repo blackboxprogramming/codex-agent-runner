@@ -304,10 +304,6 @@ codex-agent-runner/
 │       ├── deploy.yml          # Cloudflare Pages deploy + brand check
 │       ├── security-scan.yml   # CodeQL + dependency review
 │       └── self-healing.yml    # Health monitoring + auto-rollback
-├── tests/
-│   ├── unit/                   # Jest unit tests
-│   └── e2e/                    # Playwright E2E tests
-├── .env.example                # Environment variable template
 ├── CONTRIBUTING.md             # Contribution guidelines
 ├── LICENSE                     # MIT License
 └── README.md                   # This file
