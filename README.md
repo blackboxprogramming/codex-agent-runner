@@ -262,7 +262,7 @@ railway up --service codex-agent-runner
 npx playwright install
 
 # Run all E2E tests
-npm run test:e2e
+npx playwright test
 
 # Run in headed mode for debugging
 npx playwright test --headed
