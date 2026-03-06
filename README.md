@@ -137,7 +137,7 @@ await runner.start();
 
 ## ⚙️ Configuration
 
-Copy `.env.example` to `.env.local` and populate all required variables.
+Create a `.env.local` file in the project root and populate all required variables, for example:
 
 ```env
 # ── Stripe ────────────────────────────────────────────────────
