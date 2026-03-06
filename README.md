@@ -12,20 +12,20 @@
 
 ## 📑 Table of Contents
 
-1. [Overview](#-overview)
-2. [Features](#-features)
-3. [Technology Stack](#️-technology-stack)
-4. [Quick Start](#-quick-start)
-5. [npm Installation](#-npm-installation)
-6. [Configuration](#️-configuration)
-7. [Stripe Integration](#-stripe-integration)
-8. [Deployment](#-deployment)
-9. [End-to-End Testing](#-end-to-end-testing)
-10. [Project Structure](#-project-structure)
-11. [Brand Compliance](#-brand-compliance)
-12. [Contributing](#-contributing)
-13. [Support](#-support)
-14. [License](#-license)
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Technology Stack](#technology-stack)
+4. [Quick Start](#quick-start)
+5. [npm Installation](#npm-installation)
+6. [Configuration](#configuration)
+7. [Stripe Integration](#stripe-integration)
+8. [Deployment](#deployment)
+9. [End-to-End Testing](#end-to-end-testing)
+10. [Project Structure](#project-structure)
+11. [Brand Compliance](#brand-compliance)
+12. [Contributing](#contributing)
+13. [Support](#support)
+14. [License](#license)
 
 ---
 
