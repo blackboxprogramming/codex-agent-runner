@@ -330,10 +330,10 @@ This project follows the official [BlackRoad Brand System](https://brand.blackro
 
 ```bash
 # Verify approved colours are present
-grep -r "#F5A623\|#FF1D6C\|#2979FF\|#9C27B0" . --include="*.{html,css,tsx}"
+grep -r "#F5A623\|#FF1D6C\|#2979FF\|#9C27B0" . --include="*.html" --include="*.css" --include="*.tsx"
 
 # Verify no forbidden colours
-grep -r "#FF9D00\|#FF6B00\|#FF0066" . --include="*.{html,css,tsx}" && echo "⚠️ Forbidden colours found!"
+grep -r "#FF9D00\|#FF6B00\|#FF0066" . --include="*.html" --include="*.css" --include="*.tsx" && echo "⚠️ Forbidden colours found!"
 ```
 
 ---
