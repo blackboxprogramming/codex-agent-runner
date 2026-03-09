@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Codex Agent Runner — Powered by Ollama</title>
+  <style>
+    /* ── BlackRoad Brand System ─────────────────────────────────────── */
+    :root {
+      --amber:       #F5A623;
+      --hot-pink:    #FF1D6C;
+      --electric:    #2979FF;
+      --violet:      #9C27B0;
+      --bg:          #0d0d0f;
+      --surface:     #16161a;
+      --surface-2:   #1e1e26;
+      --text:        #e8e8f0;
+      --text-muted:  #7a7a9a;
+      --radius:      10px;
+      --phi:         1.618;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.618;
+    }
+
+    /* ── Header ────────────────────────────────────────────────────── */
+    header {
+      padding: 16px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid #ffffff14;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    header h1 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, var(--amber) 38.2%, var(--hot-pink) 61.8%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .badge {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 99px;
+      background: #ffffff12;
+      color: var(--text-muted);
+      border: 1px solid #ffffff18;
+    }
+    .badge.online { border-color: #22c55e44; color: #22c55e; background: #22c55e12; }
+    .badge.offline { border-color: #ef444444; color: #ef4444; background: #ef444412; }
+
+    /* ── Settings bar ───────────────────────────────────────────────── */
+    .settings {
+      padding: 10px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid #ffffff0a;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .settings label { font-size: 0.8rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+    .settings input, .settings select {
+      background: var(--surface-2);
+      border: 1px solid #ffffff18;
+      border-radius: 6px;
+      color: var(--text);
+      padding: 4px 8px;
+      font-size: 0.8rem;
+      outline: none;
+    }
+    .settings input:focus, .settings select:focus { border-color: var(--electric); }
+    .settings input[type="text"] { width: 220px; }
+
+    /* ── Messages ──────────────────────────────────────────────────── */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    .msg {
+      display: flex;
+      gap: 12px;
+      max-width: 820px;
+      width: 100%;
+    }
+    .msg.user { align-self: flex-end; flex-direction: row-reverse; }
+    .msg.assistant { align-self: flex-start; }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .msg.user .avatar {
+      background: linear-gradient(135deg, var(--electric) 38.2%, var(--violet) 61.8%);
+    }
+    .msg.assistant .avatar {
+      background: linear-gradient(135deg, var(--amber) 38.2%, var(--hot-pink) 61.8%);
+    }
+
+    .bubble {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.618;
+      max-width: 680px;
+    }
+    .msg.user .bubble {
+      background: var(--surface-2);
+      border: 1px solid #ffffff18;
+      border-top-right-radius: 2px;
+    }
+    .msg.assistant .bubble {
+      background: var(--surface);
+      border: 1px solid #ffffff0f;
+      border-top-left-radius: 2px;
+    }
+
+    .handle-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: linear-gradient(135deg, var(--amber) 38.2%, var(--hot-pink) 61.8%);
+      color: #000;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .thinking {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      padding: 4px 0;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--hot-pink);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    .dot:nth-child(2) { animation-delay: 0.2s; background: var(--amber); }
+    .dot:nth-child(3) { animation-delay: 0.4s; background: var(--electric); }
+    @keyframes pulse {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* ── System / error messages ───────────────────────────────────── */
+    .system-msg {
+      align-self: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: #ffffff08;
+      border: 1px solid #ffffff0f;
+    }
+    .system-msg.error { color: #ef4444; border-color: #ef444430; background: #ef444408; }
+
+    /* ── Input area ────────────────────────────────────────────────── */
+    .input-area {
+      padding: 16px 24px;
+      background: var(--surface);
+      border-top: 1px solid #ffffff14;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    #prompt {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid #ffffff18;
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      color: var(--text);
+      font-size: 0.9rem;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      max-height: 160px;
+      line-height: 1.618;
+    }
+    #prompt:focus { border-color: var(--electric); }
+    #prompt::placeholder { color: var(--text-muted); }
+
+    #send-btn {
+      padding: 11px 20px;
+      border-radius: var(--radius);
+      border: none;
+      background: linear-gradient(135deg, var(--hot-pink) 38.2%, var(--violet) 61.8%);
+      color: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      white-space: nowrap;
+    }
+    #send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    #send-btn:not(:disabled):hover { opacity: 0.88; }
+
+    .hint {
+      padding: 6px 24px 12px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--surface);
+    }
+    .hint span { color: var(--amber); }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────────────── -->
+<header>
+  <h1>⚡ Codex Agent Runner</h1>
+  <span class="badge" id="status-badge">checking…</span>
+  <span style="margin-left:auto; font-size:0.75rem; color:var(--text-muted);">All requests → Ollama (local)</span>
+</header>
+
+<!-- ── Settings bar ─────────────────────────────────────────────────── -->
+<div class="settings">
+  <label>
+    Ollama URL
+    <input type="text" id="ollama-url" value="http://localhost:11434" placeholder="http://localhost:11434" />
+  </label>
+  <label>
+    Model
+    <input type="text" id="ollama-model" value="llama3" placeholder="llama3" />
+  </label>
+  <label>
+    Available models
+    <select id="model-list"><option value="">— refresh to load —</option></select>
+  </label>
+  <button id="refresh-btn" style="
+    background:var(--surface-2);border:1px solid #ffffff18;border-radius:6px;
+    color:var(--text);padding:4px 10px;font-size:0.8rem;cursor:pointer;">
+    ↻ Refresh
+  </button>
+</div>
+
+<!-- ── Message list ─────────────────────────────────────────────────── -->
+<div id="messages">
+  <div class="system-msg">
+    Type a message. Prefix with <strong>@ollama</strong>, <strong>@copilot</strong>,
+    <strong>@lucidia</strong>, or <strong>@blackboxprogramming</strong> — all route to your local Ollama.
+  </div>
+</div>
+
+<!-- ── Input ────────────────────────────────────────────────────────── -->
+<div class="hint">
+  Try: <span>@ollama</span> explain quantum entanglement &nbsp;·&nbsp;
+  <span>@copilot</span> write a Python hello world &nbsp;·&nbsp;
+  <span>@blackboxprogramming</span> list sorting algorithms &nbsp;·&nbsp; Shift+Enter for new line
+</div>
+<div class="input-area">
+  <textarea id="prompt" rows="2" placeholder="@ollama  or  @copilot  or  @lucidia  or  @blackboxprogramming  — all go to Ollama"></textarea>
+  <button id="send-btn">Send ↑</button>
+</div>
+
+<script type="module">
+  // ── Imports ──────────────────────────────────────────────────────────
+  import { OLLAMA_HANDLES, parseHandle, ollamaChat } from './ollama.js';
+
+  // ── Elements ─────────────────────────────────────────────────────────
+  const messagesEl   = document.getElementById('messages');
+  const promptEl     = document.getElementById('prompt');
+  const sendBtn      = document.getElementById('send-btn');
+  const statusBadge  = document.getElementById('status-badge');
+  const urlInput     = document.getElementById('ollama-url');
+  const modelInput   = document.getElementById('ollama-model');
+  const modelList    = document.getElementById('model-list');
+  const refreshBtn   = document.getElementById('refresh-btn');
+
+  // Conversation history for context
+  const history = [];
+
+  // ── Helpers ───────────────────────────────────────────────────────────
+  function scrollBottom() {
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  function addSystemMsg(text, isError = false) {
+    const el = document.createElement('div');
+    el.className = 'system-msg' + (isError ? ' error' : '');
+    el.textContent = text;
+    messagesEl.appendChild(el);
+    scrollBottom();
+    return el;
+  }
+
+  function addMessage(role, content, handle = null) {
+    const wrapper = document.createElement('div');
+    wrapper.className = `msg ${role}`;
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = role === 'user' ? 'You' : 'AI';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+
+    if (handle) {
+      const tag = document.createElement('div');
+      tag.className = 'handle-tag';
+      tag.textContent = `@${handle} → ollama`;
+      bubble.appendChild(tag);
+    }
+
+    const text = document.createElement('span');
+    text.textContent = content;
+    bubble.appendChild(text);
+
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(bubble);
+    messagesEl.appendChild(wrapper);
+    scrollBottom();
+    return text; // return span so we can append to it during streaming
+  }
+
+  function showThinking() {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'msg assistant';
+    wrapper.id = 'thinking';
+
+    const avatar = document.createElement('div');
+    avatar.className = 'avatar';
+    avatar.textContent = 'AI';
+
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.innerHTML = '<div class="thinking"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
+
+    wrapper.appendChild(avatar);
+    wrapper.appendChild(bubble);
+    messagesEl.appendChild(wrapper);
+    scrollBottom();
+    return wrapper;
+  }
+
+  // ── Ollama status check ───────────────────────────────────────────────
+  async function checkStatus() {
+    const base = urlInput.value.trim().replace(/\/$/, '');
+    try {
+      const r = await fetch(`${base}/api/tags`, { signal: AbortSignal.timeout(3000) });
+      if (r.ok) {
+        statusBadge.className = 'badge online';
+        statusBadge.textContent = 'Ollama online';
+        const data = await r.json();
+        const models = (data.models || []).map(m => m.name);
+        // Safely populate modelList without using innerHTML to avoid injection
+        modelList.innerHTML = '';
+        if (models.length) {
+          models.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            modelList.appendChild(opt);
+          });
+        } else {
+          const opt = document.createElement('option');
+          opt.value = '';
+          opt.textContent = 'no models found';
+          modelList.appendChild(opt);
+        }
+        modelList.onchange = () => { modelInput.value = modelList.value; };
+        return true;
+      }
+    } catch { /* fall through */ }
+    statusBadge.className = 'badge offline';
+    statusBadge.textContent = 'Ollama offline';
+    return false;
+  }
+
+  refreshBtn.addEventListener('click', checkStatus);
+  checkStatus();
+
+  // ── Send message ──────────────────────────────────────────────────────
+  async function send() {
+    const raw = promptEl.value.trim();
+    if (!raw) return;
+
+    const { handle, prompt } = parseHandle(raw);
+
+    // Display user bubble (show handle tag if one was detected)
+    addMessage('user', raw, null);
+    history.push({ role: 'user', content: prompt });
+
+    promptEl.value = '';
+    promptEl.style.height = '';
+    sendBtn.disabled = true;
+
+    // Thinking indicator
+    const thinkingEl = showThinking();
+
+    let answerSpan = null;
+    let fullAnswer = '';
+
+    await ollamaChat({
+      baseUrl: urlInput.value.trim().replace(/\/$/, ''),
+      model:   modelInput.value.trim() || 'llama3',
+      messages: history,
+      onChunk(chunk) {
+        if (!answerSpan) {
+          thinkingEl.remove();
+          answerSpan = addMessage('assistant', '', handle || 'ollama');
+        }
+        fullAnswer += chunk;
+        answerSpan.textContent = fullAnswer;
+        scrollBottom();
+      },
+      onDone() {
+        if (!answerSpan) {
+          thinkingEl.remove();
+          answerSpan = addMessage('assistant', '(no response)', handle || 'ollama');
+        }
+        history.push({ role: 'assistant', content: fullAnswer });
+        sendBtn.disabled = false;
+        promptEl.focus();
+      },
+      onError(err) {
+        thinkingEl.remove();
+        addSystemMsg(`Error: ${err.message}`, true);
+        sendBtn.disabled = false;
+        promptEl.focus();
+      },
+    });
+  }
+
+  sendBtn.addEventListener('click', send);
+  promptEl.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  });
+
+  // Auto-resize textarea
+  promptEl.addEventListener('input', () => {
+    promptEl.style.height = 'auto';
+    promptEl.style.height = Math.min(promptEl.scrollHeight, 160) + 'px';
+  });
+</script>
+
+</body>
+</html>
