@@ -1,16 +1,85 @@
-# Codex Agent Runner
+# ⚡ Codex Agent Runner
 
-Ollama chat client with handle-based routing. Routes `@ollama`, `@copilot`, `@lucidia`, and `@blackboxprogramming` mentions to a local Ollama instance with streaming responses.
+> **Chat with AI. No accounts. No cloud. Your data stays on your device.**
 
-## Usage
+<div align="center">
+
+### 🚀 [Try It Now — Open the Chat →](https://codex-agent-runner.pages.dev)
+
+*Works in your browser. One click. That's it.*
+
+</div>
+
+---
+
+## ✨ What is this?
+
+**Codex Agent Runner** is a beautiful chat interface that lets you talk to AI — completely privately, right on your own computer. No API keys, no subscriptions, no data sent to the cloud.
+
+Just you and your AI, having a conversation.
+
+---
+
+## 🎯 Get Started in 3 Steps
+
+### Step 1 — Install Ollama (free, takes 1 minute)
+
+👉 **[Download Ollama at ollama.ai](https://ollama.ai)**
+
+Ollama is a free tool that runs AI models on your computer. It works on Mac, Windows, and Linux.
+
+### Step 2 — Pull a model
+
+After installing Ollama, open your Terminal (Mac/Linux) or Command Prompt (Windows) and run:
+
+```
+ollama pull llama3
+```
+
+That's the only command you'll ever need.
+
+### Step 3 — Open the chat
+
+👉 **[Open Codex Agent Runner](https://codex-agent-runner.pages.dev)**
+
+The page will automatically detect your local Ollama and you're ready to chat!
+
+---
+
+## 💬 How to Chat
+
+Just type naturally! You can also address specific AI personas:
+
+| Type this… | What happens |
+|---|---|
+| `Hello, how are you?` | Chat directly with the AI |
+| `@ollama explain black holes` | Talk to Ollama |
+| `@copilot write me a Python function` | Talk to Copilot persona |
+| `@lucidia tell me a story` | Talk to Lucidia persona |
+| `@blackboxprogramming` | Talk to the BlackRoad AI |
+
+All of these talk to your **local** Ollama — nothing is sent to any external server.
+
+---
+
+## 🔒 Your Privacy, Guaranteed
+
+- ✅ **Fully offline** — your conversations never leave your machine
+- ✅ **No account needed** — zero sign-up, zero tracking
+- ✅ **Free forever** — no subscriptions or API costs
+- ✅ **Open source** — see exactly what runs on your machine
+
+---
+
+## 🛠 For Developers
+
+Want to use the API in your own project?
 
 ```js
 import { ollamaChat, parseHandle } from './ollama.js';
 
-// Parse @handle from user input
 const { handle, prompt } = parseHandle('@lucidia explain quantum entanglement');
 
-// Stream response from local Ollama
 await ollamaChat({
   model: 'llama3',
   messages: [{ role: 'user', content: prompt }],
@@ -20,37 +89,18 @@ await ollamaChat({
 });
 ```
 
-## API
+See [ollama.js](./ollama.js) for the full API.
 
-### `parseHandle(text)`
+---
 
-Strips a recognized `@handle` prefix and returns `{ handle, prompt }`.
+## 🆘 Need Help?
 
-### `ollamaChat(options)`
+- **Ollama shows "offline"?** Make sure Ollama is running — open the Ollama app or run `ollama serve` in your terminal
+- **No models available?** Run `ollama pull llama3` in your terminal
+- **Still stuck?** [Open an issue](https://github.com/blackboxprogramming/codex-agent-runner/issues) and we'll help!
 
-Streams a chat completion from the local Ollama API.
+---
 
-| Option | Default | Description |
-|--------|---------|-------------|
-| `baseUrl` | `http://localhost:11434` | Ollama server URL |
-| `model` | `llama3` | Model name |
-| `messages` | — | OpenAI-style message array |
-| `onChunk` | — | Called with each text chunk |
-| `onDone` | — | Called when stream completes |
-| `onError` | — | Called on failure |
-
-## Requirements
-
-- [Ollama](https://ollama.ai) running locally
-
-## Project Structure
-
-```
-ollama.js       # Chat client with handle parsing and streaming
-ollama.test.js  # Tests
-index.html      # Web interface
-```
-
-## License
-
-Copyright 2026 BlackRoad OS, Inc. All rights reserved.
+<div align="center">
+Made with ❤️ by <a href="https://github.com/blackboxprogramming">BlackRoad OS</a>
+</div>

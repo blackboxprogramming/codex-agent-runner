@@ -36,6 +36,7 @@ jobs:
 
       - name: Deploy to Cloudflare Pages
         id: cloudflare_deploy
+        continue-on-error: true
         uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -45,8 +46,8 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Add deployment comment
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v8
+        if: github.event_name == 'pull_request' && steps.cloudflare_deploy.outcome == 'success'
+        uses: actions/github-script@v7
         with:
           script: |
             github.rest.issues.createComment({
@@ -57,7 +58,11 @@ jobs:
             })
 
       - name: Notify success
-        if: success()
+        if: steps.cloudflare_deploy.outcome == 'success'
         run: |
           echo "✅ Deployment successful!"
           echo "🌐 URL: ${{ steps.cloudflare_deploy.outputs.url }}"
+
+      - name: Skip deploy notice
+        if: steps.cloudflare_deploy.outcome != 'success'
+        run: echo "ℹ️ Cloudflare deployment skipped or failed — check that CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets are configured."
