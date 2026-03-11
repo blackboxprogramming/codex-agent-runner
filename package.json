@@ -1,0 +1,11 @@
+{
+  "name": "codex-agent-runner",
+  "version": "1.0.0",
+  "description": "AI code generation pipeline with local Ollama inference",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test ollama.test.js"
+  },
+  "engines": { "node": ">=20.0.0" }
+}
