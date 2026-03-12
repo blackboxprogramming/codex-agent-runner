@@ -1,5 +1,12 @@
 # ⚡ Codex Agent Runner
 
+[![CI](https://github.com/blackboxprogramming/codex-agent-runner/actions/workflows/ci.yml/badge.svg)](https://github.com/blackboxprogramming/codex-agent-runner/actions/workflows/ci.yml)
+[![Node.js](https://img.shields.io/badge/node-20%2B-339933.svg)](https://nodejs.org)
+[![Ollama](https://img.shields.io/badge/Ollama-fleet_proxy-FF6B2B.svg)](https://ollama.ai)
+[![Edge AI](https://img.shields.io/badge/edge-4_nodes-00D4FF.svg)](https://blackroad.io)
+
+
+
 > **Chat with AI. No accounts. No cloud. Your data stays on your device.**
 
 <div align="center">
