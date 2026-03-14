@@ -1,113 +1,164 @@
-# ⚡ Codex Agent Runner
+# Codex Agent Runner
 
-[![CI](https://github.com/blackboxprogramming/codex-agent-runner/actions/workflows/ci.yml/badge.svg)](https://github.com/blackboxprogramming/codex-agent-runner/actions/workflows/ci.yml)
-[![Node.js](https://img.shields.io/badge/node-20%2B-339933.svg)](https://nodejs.org)
-[![Ollama](https://img.shields.io/badge/Ollama-fleet_proxy-FF6B2B.svg)](https://ollama.ai)
-[![Edge AI](https://img.shields.io/badge/edge-4_nodes-00D4FF.svg)](https://blackroad.io)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/blackboxprogramming/codex-agent-runner/deploy.yml?branch=main)](https://github.com/blackboxprogramming/codex-agent-runner/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Brand Compliant](https://img.shields.io/badge/Brand-Compliant-success)](https://brand.blackroad.io)
 
 
 
-> **Chat with AI. No accounts. No cloud. Your data stays on your device.**
+## 🌟 Features
 
-<div align="center">
+- ✨ 
 
-### 🚀 [Try It Now — Open the Chat →](https://codex-agent-runner.pages.dev)
 
-*Works in your browser. One click. That's it.*
+## 🚀 Quick Start
 
-</div>
+```bash
+# Clone the repository
+git clone https://github.com/BlackRoad-OS/codex-agent-runner.git
 
----
+# Navigate to the directory
+cd codex-agent-runner
 
-## ✨ What is this?
-
-**Codex Agent Runner** is a beautiful chat interface that lets you talk to AI — completely privately, right on your own computer. No API keys, no subscriptions, no data sent to the cloud.
-
-Just you and your AI, having a conversation.
-
----
-
-## 🎯 Get Started in 3 Steps
-
-### Step 1 — Install Ollama (free, takes 1 minute)
-
-👉 **[Download Ollama at ollama.ai](https://ollama.ai)**
-
-Ollama is a free tool that runs AI models on your computer. It works on Mac, Windows, and Linux.
-
-### Step 2 — Pull a model
-
-After installing Ollama, open your Terminal (Mac/Linux) or Command Prompt (Windows) and run:
-
-```
-ollama pull llama3
+# Open in browser
+open index.html
 ```
 
-That's the only command you'll ever need.
+## 📦 Deployment
 
-### Step 3 — Open the chat
+### Cloudflare Pages
 
-👉 **[Open Codex Agent Runner](https://codex-agent-runner.pages.dev)**
+This project is configured for automatic deployment via Cloudflare Pages:
 
-The page will automatically detect your local Ollama and you're ready to chat!
+1. Connected to GitHub repository
+2. Auto-deploys on push to `main` branch
+3. Preview deployments for all branches
+4. Custom domain: codex-agent-runner.pages.dev
 
----
+**Live URL:** https://codex-agent-runner.pages.dev
 
-## 💬 How to Chat
+## 🎨 Brand Compliance
 
-Just type naturally! You can also address specific AI personas:
+This project follows the official [BlackRoad Brand System](https://brand.blackroad.io):
 
-| Type this… | What happens |
-|---|---|
-| `Hello, how are you?` | Chat directly with the AI |
-| `@ollama explain black holes` | Talk to Ollama |
-| `@copilot write me a Python function` | Talk to Copilot persona |
-| `@lucidia tell me a story` | Talk to Lucidia persona |
-| `@blackboxprogramming` | Talk to the BlackRoad AI |
+- ✅ **Colors:** Amber (#F5A623), Hot Pink (#FF1D6C), Electric Blue (#2979FF), Violet (#9C27B0)
+- ✅ **Spacing:** Golden Ratio (φ = 1.618)
+- ✅ **Typography:** SF Pro Display, line-height: 1.618
+- ✅ **Gradients:** 135° with stops at 38.2% & 61.8%
+- ❌ **No forbidden colors** from old system
 
-All of these talk to your **local** Ollama — nothing is sent to any external server.
+## 🛠️ Technology Stack
 
----
+- **Frontend:** HTML5, CSS3 (Custom Properties)
+- **Design System:** BlackRoad Brand System
+- **Hosting:** Cloudflare Pages
+- **CI/CD:** GitHub Actions
+- **Version Control:** Git & GitHub
 
-## 🔒 Your Privacy, Guaranteed
+## 📂 Project Structure
 
-- ✅ **Fully offline** — your conversations never leave your machine
-- ✅ **No account needed** — zero sign-up, zero tracking
-- ✅ **Free forever** — no subscriptions or API costs
-- ✅ **Open source** — see exactly what runs on your machine
-
----
-
-## 🛠 For Developers
-
-Want to use the API in your own project?
-
-```js
-import { ollamaChat, parseHandle } from './ollama.js';
-
-const { handle, prompt } = parseHandle('@lucidia explain quantum entanglement');
-
-await ollamaChat({
-  model: 'llama3',
-  messages: [{ role: 'user', content: prompt }],
-  onChunk: (text) => process.stdout.write(text),
-  onDone: () => console.log('\n'),
-  onError: (err) => console.error(err.message),
-});
+```
+codex-agent-runner/
+├── index.html          # Main page
+├── README.md           # This file
+├── CONTRIBUTING.md     # Contribution guidelines
+├── LICENSE             # MIT License
+└── .github/
+    └── workflows/
+        └── deploy.yml  # CI/CD workflow
 ```
 
-See [ollama.js](./ollama.js) for the full API.
+## 🤝 Contributing
+
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
+### Quick Contribution Guide
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m '✨ Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📋 Development
+
+### Prerequisites
+
+- Modern web browser
+- Git
+- Text editor (VS Code recommended)
+
+### Local Development
+
+Simply open `index.html` in your browser. No build process required!
+
+### Brand Compliance Check
+
+Ensure your changes follow the brand system:
+
+```bash
+# Check colors
+grep -r "#FF1D6C\|#F5A623\|#2979FF\|#9C27B0" .
+
+# Verify no forbidden colors
+grep -r "#FF9D00\|#FF6B00\|#FF0066" . && echo "⚠️ Forbidden colors found!"
+```
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🌐 Part of BlackRoad OS
+
+This repository is part of the [BlackRoad OS](https://blackroad.io) ecosystem.
+
+### Related Projects
+
+- [blackroad-os-web](https://github.com/BlackRoad-OS/blackroad-os-web) - Main platform
+- [blackroad-os-docs](https://github.com/BlackRoad-OS/blackroad-os-docs) - Documentation
+- [blackroad-os-brand](https://github.com/BlackRoad-OS/blackroad-os-brand) - Brand system
+
+## 📞 Support
+
+- **Documentation:** https://docs.blackroad.io
+- **Issues:** https://github.com/BlackRoad-OS/codex-agent-runner/issues
+- **Email:** blackroad.systems@gmail.com
+
+## 🙏 Acknowledgments
+
+- Built with [Claude Code](https://claude.com/claude-code)
+- Deployed on [Cloudflare Pages](https://pages.cloudflare.com)
+- Part of the BlackRoad OS ecosystem
 
 ---
 
-## 🆘 Need Help?
-
-- **Ollama shows "offline"?** Make sure Ollama is running — open the Ollama app or run `ollama serve` in your terminal
-- **No models available?** Run `ollama pull llama3` in your terminal
-- **Still stuck?** [Open an issue](https://github.com/blackboxprogramming/codex-agent-runner/issues) and we'll help!
+**Status:** 🟢 Active
+**Last Updated:** 2026-01-07
+**Maintained by:** BlackRoad OS Team
 
 ---
 
-<div align="center">
-Made with ❤️ by <a href="https://github.com/blackboxprogramming">BlackRoad OS</a>
-</div>
+## 📜 License & Copyright
+
+**Copyright © 2026 BlackRoad OS, Inc. All Rights Reserved.**
+
+**CEO:** Alexa Amundson
+
+**PROPRIETARY AND CONFIDENTIAL**
+
+This software is the proprietary property of BlackRoad OS, Inc. and is **NOT for commercial resale**.
+
+### ⚠️ Usage Restrictions:
+- ✅ **Permitted:** Testing, evaluation, and educational purposes
+- ❌ **Prohibited:** Commercial use, resale, or redistribution without written permission
+
+### 🏢 Enterprise Scale:
+Designed to support:
+- 30,000 AI Agents
+- 30,000 Human Employees
+- One Operator: Alexa Amundson (CEO)
+
+### 📧 Contact:
+For commercial licensing inquiries:
+- **Email:** blackroad.systems@gmail.com
+- **Organization:** BlackRoad OS, Inc.
+
+See [LICENSE](LICENSE) for complete terms.
